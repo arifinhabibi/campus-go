@@ -1,18 +1,17 @@
 package database
 
 import (
-	"database/sql"
-	"fmt"
 	"log"
 	"os"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var url string
 
-func Connection(){
+func Connection() (*gorm.DB) {
 	err := godotenv.Load()
     if err != nil {
         log.Fatal("Error loading .env file")
@@ -26,21 +25,18 @@ func Connection(){
 	  dbName := os.Getenv("DB_NAME")
 
 
-	  if dbPassword == "" {
+	if dbPassword == "" {
 		url = dbUser+"@tcp("+ dbHost +":"+ dbPort +")/"+dbName
-		} else {
+	} else {
 		url = dbUser+":"+ dbPassword +"@tcp("+ dbHost +":"+ dbPort +")/"+dbName
-	  }
+	}
 
-	db, err := sql.Open("mysql", url)
+	// db, err := sql.Open("mysql", url)
+
+	db, err := gorm.Open(mysql.Open(url), &gorm.Config{})
     if err != nil {
         panic(err.Error())
     }
-    defer db.Close()
-	
-	err = db.Ping()
-    if err != nil {
-		panic(err)
-    }
-	fmt.Println("Database success Connection!")
+
+	return db
 }

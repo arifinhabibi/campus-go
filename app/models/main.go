@@ -1,5 +1,10 @@
 package models
 
-func Register(db []byte) {
+import (
+	"github.com/arifinhabibi/campus-go/app/models/users"
+)
+
+func Register() {
+	users.Register()
 
 }

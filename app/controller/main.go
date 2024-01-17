@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/arifinhabibi/campus-go/app/models/users"
 	"github.com/gorilla/mux"
 )
 
@@ -16,8 +17,9 @@ type Item struct {
 var items []Item
 
 // GetItems returns all items in the database.
-func GetItems(w http.ResponseWriter, r *http.Request) {
+func GetItems(w  http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
+    items := users.Shows()
     json.NewEncoder(w).Encode(items)
 }
 

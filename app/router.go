@@ -14,11 +14,7 @@ func Router() {
     router := mux.NewRouter()
 
     // // Add routes
-    router.HandleFunc("/items", controller.GetItems).Methods("GET")
-    // router.HandleFunc("/items/{id}", GetItem).Methods("GET")
-    // router.HandleFunc("/items", CreateItem).Methods("POST")
-    // router.HandleFunc("/items/{id}", UpdateItem).Methods("PUT")
-    // router.HandleFunc("/items/{id}", DeleteItem).Methods("DELETE")
+    router.HandleFunc("/user", controller.Login).Methods("POST")
 
 	// Start the server
 	port := 8080
